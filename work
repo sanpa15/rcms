@@ -1,0 +1,36 @@
+#   how to allowing the particular userrs in ssh ervice
+
+
+   how to given ssh access in particular users in linux centos
+   vi etc/ssh/sshd_ config file then then add AllowUsers username(user1)
+   then save and exit then systemctl restart sshd  now (user1) only access the ssh service
+   vi/etc/ssh/sshd_config file then add DenyUsers username (user1)
+   then save and exit  systemctl  restart sshd   the user1 not access ssh service
+                OR
+
+   echo "AllowUsers user3" >> /etc/ssh/sshd_config
+   systemctl restart sshd
+
+   echo “DenyUsers  user3”  >> etcssh/sshd_config
+   systemctl restart sshd
+
+   at the same for group  AllowGroups  groupname   AllowGroups grp1 grp2 grp3
+
+   (at a time allowusers &allowgroups) only one is enable  or working
+
+
+
+  #  how to give sudo access for particular user  in centos7
+     
+     user adding in sudoers group
+     sudo usermod -aG sudo username for ubuntu
+     sudo usermod -aG wheel username for centos
+     or 
+     editing /etc/sudoers file
+     vi /etc/sudoers  or visudo command 
+     then use visudo command or etcsudoers file  add
+      root ALL=(ALL) ALL
+
+     UserName ALL=(ALL) ALL
+     save and exit
+     
