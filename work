@@ -34,3 +34,185 @@
      UserName ALL=(ALL) ALL
      save and exit
      
+     
+     HOW TO NETWORK  CONFIGURE NETWORK BONDING 
+     modprobe bonding
+modinfo bonding
+Step:1 Create Bond Interface File
+Create a bond interface file (ifcfg-bond0) under the folder “/etc/sysconfig/network-scripts/”
+
+DEVICE=bond0
+TYPE=Bond
+NAME=bond0
+BONDING_MASTER=yes
+BOOTPROTO=none
+ONBOOT=yes
+IPADDR=192.168.3.226
+NETMASK=255.255.252.0
+GATEWAY=192.168.1.1
+BONDING_OPTS="mode=1 primary=enp0s3 miimon=100"
+ZONE=public
+
+then edit enp0s3 file
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=none
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=yes
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+IPV6_ADDR_GEN_MODE=stable-privacy
+NAME=enp0s3
+UUID=6919a910-629b-4bbc-be3f-04f09e6054c6
+DEVICE=enp0s3
+ONBOOT=yes
+MASTER=bond0
+SLAVE=yes
+ZONE=public
+
+then edit enps8 file
+
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=none
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=yes
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FtartATAL=no
+IPV6_ADDR_GEN_MODE=stable-privacy
+NAME=enp0s8
+UUID=ff4d147c-e442-3042-8a82-4cff78c9ee8d
+DEVICE=enp0s8
+ONBOOT=yes
+MASTER=bond0
+SLAVE=yes
+ZONE=public   
+
+
+finally restart the service systemctl restart network .service   & check ip a
+then down the inteface 1 enp0s3 using  ifdown enp0s3 command restart the service
+
+
+  HARD DISK NORMAL PARTITION
+  Lsblk      listout hard disks
+fdisk /dev/sdb    choose  mounted harddisk
+Command (m for help): m
+Command action
+   a   toggle a bootable flag
+   b   edit bsd disklabel
+   c   toggle the dos compatibility flag
+   d   delete a partition
+   g   create a new empty GPT partition table
+   G   create an IRIX (SGI) partition table
+   l   list known partition types
+   m   print this menu
+   n   add a new partition
+   o   create a new empty DOS partition table
+   p   print the partition table
+   q   quit without saving changes
+   s   create a new empty Sun disklabel
+   t   change a partition's system id
+   u   change display/entry units
+   v   verify the partition table
+   w   write table to disk and exit
+   x   extra functionality (experts only)
+
+
+ p   primary (1 primary, 0 extended, 3 free)
+   e   extended
+Select (default p): p
+Partition number (2-4, default 2): 2
+First sector (2099200-16777215, default 2099200): 
+Using default value 2099200
+Last sector, +sectors or +size{K,M,G} (2099200-16777215, default 16777215): +2G
+Partition 2 of type Linux and of size 2 GiB is set
+
+Command (m for help): p
+
+Disk /dev/sdb: 8589 MB, 8589934592 bytes, 16777216 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x9538e5cb
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048     2099199     1048576   83  Linux
+/dev/sdb2         2099200     6293503     2097152   83  Linux
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+
+WARNING: Re-reading the partition table failed with error 16: Device or resource busy.
+The kernel still uses the old table. The new table will be used at
+the next reboot or after you run partprobe(8) or kpartx(8)
+Syncing disks
+  REBOOT THE MACHINE
+
+e4bba5c8-d45e-485d-aec4-dd2d4ef314f6
+
+[cent1@localhost ~]$ su -
+Password: 
+Last login: Mon Apr 11 05:13:01 EDT 2022 on pts/0
+[root@localhost ~]# cd /
+[root@localhost /]# pwd
+/
+[root@localhost /]# mkdir test2
+[root@localhost /]# cd t
+test/  test2/ tmp/   
+[root@localhost /]# cd test2
+[root@localhost test2]# mount /dev/sdb2   /test2
+mount: /dev/sdb2 is write-protected, mounting read-only
+mount: unknown filesystem type '(null)'
+[root@localhost test2]# mkfs
+mkfs         mkfs.btrfs   mkfs.cramfs  mkfs.ext2    mkfs.ext3    mkfs.ext4    mkfs.minix   mkfs.xfs     
+[root@localhost test2]# mkfs.ext4 /dev/sdb2
+ [root@localhost test2]# mount /dev/sdb2   /test2
+[root@localhost test2]# df -Th
+Filesystem              Type      Size  Used Avail Use% Mounted on
+devtmpfs                devtmpfs  484M     0  484M   0% /dev
+tmpfs                   tmpfs     496M     0  496M   0% /dev/shm
+tmpfs                   tmpfs     496M  6.8M  489M   2% /run
+tmpfs                   tmpfs     496M     0  496M   0% /sys/fs/cgroup
+/dev/mapper/centos-root xfs       6.2G  1.6G  4.7G  25% /
+/dev/sdb1               xfs      1014M   33M  982M   4% /test
+/dev/sda1               xfs      1014M  168M  847M  17% /boot
+tmpfs                   tmpfs     100M     0  100M   0% /run/user/1001
+/dev/sdb2               ext4      2.0G  6.0M  1.8G   1% /test2
+[root@localhost test2]# ls -lt /dev/disk/by-uuid/
+total 0
+lrwxrwxrwx. 1 root root 10 Apr 11 05:18 e4bba5c8-d45e-485d-aec4-dd2d4ef314f6 -> ../../sdb2
+lrwxrwxrwx. 1 root root 10 Apr 11 05:12 2ca750b1-5051-4f76-be08-c10d32e8e0ca -> ../../dm-1
+lrwxrwxrwx. 1 root root 10 Apr 11 05:12 2e68f12e-ba87-4c82-bfcd-f6d7e1333bc2 -> ../../dm-0
+lrwxrwxrwx. 1 root root 10 Apr 11 05:12 906b81fb-da47-4128-8615-78c8169252e2 -> ../../sda1
+lrwxrwxrwx. 1 root root 10 Apr 11 05:12 8f6adbab-a908-4829-814b-d23129c90281 -> ../../sdb1
+[root@localhost test2]# cd
+[root@localhost ~]# cd /
+[root@localhost /]# umount /test2 
+[root@localhost /]# df -Th
+
+root@localhost /]# vim /etc/fstab 
+/etc/fstab
+# Created by anaconda on Fri Apr  8 23:39:24 2022
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+/dev/mapper/centos-root /                       xfs     defaults        0 0
+UUID=906b81fb-da47-4128-8615-78c8169252e2 /boot                   xfs     defaults        0 0
+/dev/mapper/centos-swap swap                    swap    defaults        0 0
+UUID=8f6adbab-a908-4829-814b-d23129c90281  /test   xfs   defaults  0 0 
+UUID=e4bba5c8-d45e-485d-aec4-dd2d4ef314f6  /test2  ext4   defaults   0 0
+~                                                                            
+
+reboot machine
+
+     
