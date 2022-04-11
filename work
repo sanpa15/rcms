@@ -35,6 +35,44 @@
      save and exit
      
      
+     HOW TO ASSIGN STATIC IP 
+     first knowing the gateway and subnetmask in yuor network using route -n command
+     route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         192.168.0.1     0.0.0.0         UG    100    0        0 enp0s9
+0.0.0.0         192.168.0.1     0.0.0.0         UG    101    0        0 enp0s10
+0.0.0.0         192.168.1.1     0.0.0.0         UG    300    0        0 bond0
+192.168.0.0     0.0.0.0         255.255.255.0   U     100    0        0 enp0s9
+192.168.0.0     0.0.0.0         255.255.255.0   U     101    0        0 enp0s10
+192.168.0.0     0.0.0.0   
+
+
+then go to configuration file use vim /etc/sysconfig/network-scripts/ifcfg-enp0s10
+
+   [root@localhost ~]# cd /etc/sysconfig/network-scripts/
+[root@localhost network-scripts]# ll
+total 244
+-rw-r--r--. 1 root root     0 Apr 11 09:25 enp0s9
+-rw-r--r--. 1 root root   202 Apr 11 03:36 ifcfg-bond0
+-rw-r--r--. 1 root root   317 Apr 11 03:38 ifcfg-enp0s3
+-rw-r--r--. 1 root root   317 Apr 11 03:40 ifcfg-enp0s8
+-rw-r--r--. 1 root root   375 Apr 11 09:46 ifcfg-enp0s9
+the ifcfg-enp0s10 file is not there you will create the file cat ifcfg-enp0s3 > ifcfg-enp0s10
+vim ifcfg-enp0s10 add the some content edit enp0s3 to enps10 and   
+using nmcli  c command copy uid in enp0s10
+                                       IPADDR=
+                                       GATEWAY=
+                                       NETMASK=
+                                       DNS1=192.168.0.1
+                                       DNS2=8.8.8.8  save exit
+  finaly edit vim /etc/resolve.conf
+      nameserver=192.168.0.1    your gateway
+      nameserver=8.8.8.8   save and exit
+      finaly restart the service systemctl restart network and use ifup enp0s10 command
+      
+     
+     
      HOW TO NETWORK  CONFIGURE NETWORK BONDING 
      modprobe bonding
 modinfo bonding
