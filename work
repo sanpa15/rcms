@@ -61,9 +61,10 @@ total 244
 the ifcfg-enp0s10 file is not there you will create the file cat ifcfg-enp0s3 > ifcfg-enp0s10
 vim ifcfg-enp0s10 add the some content edit enp0s3 to enps10 and   
 using nmcli  c command copy uid in enp0s10
-                                       IPADDR=
-                                       GATEWAY=
-                                       NETMASK=
+                                       BOOTPROTO=static
+                                       IPADDR=your range 
+                                       GATEWAY=your first ip
+                                       NETMASK=verify the subnet range 22/24/23
                                        DNS1=192.168.0.1
                                        DNS2=8.8.8.8  save exit
   finaly edit vim /etc/resolve.conf
@@ -252,5 +253,58 @@ UUID=e4bba5c8-d45e-485d-aec4-dd2d4ef314f6  /test2  ext4   defaults   0 0
 ~                                                                            
 
 reboot machine
+
+
+LVM CREATION   
+sudo lsblk
+  161  sudo pvcreate /dev/sdc1
+  162  sudo pvdisplay
+  163  sudo vgcreate offvg1 /dev/sdc1
+  164  sudo vgdisplay
+  165  sudo pvdisplay
+  166  sudo lvcreate -L +512MB -n offlv1 offvg1
+  167  sudo mkfs.xfs /dev/offvg1/offlv1 
+  168  sudo mount /dev/offvg1/offlv1 /test4
+  169  df -TH
+  170  sudo mv download.mp4 /test4
+  171  df -TH
+  172  sudo lvdisplay
+  173  sudo lvresize -L +512MB /dev/offvg1/offlv1 
+  174  df -Th
+  175  sudo resize2fs /dev/offvg1/offlv1 
+  176  sudo umount /test4
+  177  sudo lvremove /dev/offvg1/offlv1 
+  178  sudo lvcreate -L +512MB -n off1 offvg1
+  179  sudo mkfs.xfs /dev/offvg1/off1 
+  180  sudo mount /dev/offvg1/off1 /test4
+  181  mv download.mp4 /test4
+  182  sudo mv download.mp4 /test4
+  183  df -Th
+  184  sudo lvextend -L +512MB /dev/offvg1/off1 
+  185  sudo resize2fs /dev/offvg1/off1 
+  186  sudo -i
+  187  sudo resize2fs /dev/offvg1/off1 
+  188  sudo xfs_growfs /dev/offvg1/off1 
+  189  df -Th
+  190  mv download.mp4  /test4/
+  191  sudo mv download.mp4  /test4/
+  192  sudo -i
+  193  sudo lvresize -L -200MB /dev/offvg1/off1 
+  194  xfs_fsr 
+  195  df -Th
+  196  sudo lvdisplay
+  197  sudo xfs_growfs /dev/offvg1/off1
+  200  df -TH
+  201  sudo mount /dev/offvg1/off1 /test4
+  202  sudo lsblk 
+  203  sudo mount /dev/offvg1/off1 /test4
+  204  sudo lvdisplay
+  205  sudo lvremov /dev/offvg1/off1
+  206  sudo /dev/offvg1/off1lvremove 
+  207  sudo lvdisplay
+  208  sudo lvremove /dev/offvg1/off1 
+  209  sudo lvdisplay
+
+
 
      
