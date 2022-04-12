@@ -257,8 +257,9 @@ reboot machine
 
 LVM CREATION   
 sudo lsblk
-  161  sudo pvcreate /dev/sdc1
-  162  sudo pvdisplay
+sudo fdisk /dev/sdc1   mfor help n option p option  t option w option partprobe
+  161  sudo pvcreate /dev/sdc1      (volumegroup  volume name offvg1
+  162  sudo pvdisplay               (logical volume name offlv1)
   163  sudo vgcreate offvg1 /dev/sdc1
   164  sudo vgdisplay
   165  sudo pvdisplay
@@ -272,7 +273,6 @@ sudo lsblk
   173  sudo lvresize -L +512MB /dev/offvg1/offlv1 
   174  df -Th
   175  sudo resize2fs /dev/offvg1/offlv1 
-  176  sudo umount /test4
   177  sudo lvremove /dev/offvg1/offlv1 
   178  sudo lvcreate -L +512MB -n off1 offvg1
   179  sudo mkfs.xfs /dev/offvg1/off1 
@@ -290,7 +290,6 @@ sudo lsblk
   191  sudo mv download.mp4  /test4/
   192  sudo -i
   193  sudo lvresize -L -200MB /dev/offvg1/off1 
-  194  xfs_fsr 
   195  df -Th
   196  sudo lvdisplay
   197  sudo xfs_growfs /dev/offvg1/off1
@@ -299,10 +298,7 @@ sudo lsblk
   202  sudo lsblk 
   203  sudo mount /dev/offvg1/off1 /test4
   204  sudo lvdisplay
-  205  sudo lvremov /dev/offvg1/off1
-  206  sudo /dev/offvg1/off1lvremove 
-  207  sudo lvdisplay
-  208  sudo lvremove /dev/offvg1/off1 
+  205  sudo lvremov /dev/offvg1/off1 
   209  sudo lvdisplay
 
 
