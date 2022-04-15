@@ -300,7 +300,44 @@ sudo fdisk /dev/sdc1   mfor help n option p option  t option w option partprobe
   204  sudo lvdisplay
   205  sudo lvremov /dev/offvg1/off1 
   209  sudo lvdisplay
-
+  
+ FTP  CONFIGURATION
+BELOW CHANGES IN SERVER SIDE CONFIGURATION
+ install vsftpd package
+ checking the status
+ enable the package vsftpd and start the vsftpd
+ edit the configuration file /etc/vsftpd/vsftpd.conf
+ some changes and add some content 
+ anonymous_enable=NO
+ local_enable=YES
+ local_enable=YES
+ local_umask=022
+ dirmessage_enable=YES
+ xferlog_enable=YES if YES is given the log messages write in xferlog filr(/etc/vsftpd/xferlog)
+ connect_from_port_20=YES
+ xferlog_std_format=YES
+ uncomment  ftpd_banner=Welcome to blah FTP service.
+ uncomment ascii_upload_enable=YES
+ ascii_download_enable=YES
+ uncomment chroot_list_file=/etc/vsftpd/chroot_list  create chrrot_list file add your users
+ uncomment  chroot_local_user=YES
+ chroot_list_enable=YES
+ uncoment ls_recurse_enable=YES
+ vsftpd_log_file=/var/log/vsftpd.log create var/log vsftpd.log file
+ user_config_dir=/etc/vsftpd/users
+          OR
+userlist_file=/etc/vsftpd.userlist
+create user and passwd for user
+create one directory and change the ownership on this directory
+chown user:user dir name
+#####CENT OS DEFAULT ENABLE FOR SELINUX SO DISABLE IT vim /etc/selinux/config ######
+use command setenforce 0
+edit /etc/vsftpd/vsftpd.conf in xferlog_stdformat=NO   if NO is given log messages write in vsftpd.log(etc/vsftpd/vsftpd.log)   
+  
+     CLIENT SIDE CONFIGURATION
+     
+ install ftp service 
+ and connect server server  ftp server ip
 
 
      
