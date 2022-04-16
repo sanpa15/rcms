@@ -338,6 +338,76 @@ edit /etc/vsftpd/vsftpd.conf in xferlog_stdformat=NO   if NO is given log messag
      
  install ftp service 
  and connect server server  ftp server ip
+ 
+ 
+ SAMBA	
+windows machine via connect or communicate network to linux machine using samba service
+SAMBA SERVER SIDE CONFIGURATION
+yum update & yum install samna samba-client samba-common
+systemctl status smb
+systemctl status nmb
+systemctl start smb nmb
+systemctl enable smb nmb
+cd /  change root directory
+create one group groupadd honey  cat/etc/group
+create users useradd smbuser1 useradd smbuser2 passwd smbuser1 passwd smbuser2
+add the user to the honey group usermod -aG honey smbuser1
+create one directory in root cd /
+mkdir honeybee
+chmod 0770 honeybee/
+chgrp honey honeybee/
+
+ now go to smb configuration file vim /etc/samba/smb.conf  (backup first)
+ global nochange
+ comment #home
+ comment #printers
+ comment #prints
+ add the below content
+ [honey]
+comment=Directory for collaboration of the company's finance team
+browsable=yes
+path=/honeybee
+public=no
+valid users=@honey
+write list=@honey
+writeable=yes
+create mask=0770
+Force create mode=0770
+force group=honey
+save and exit
+systemctl retart smb nmb
+then create samba password for users smb -a smbuser1 smb -a smbuser2
+finaly checking your local server
+smbclient -L localhost -U smbuser1 
+enter user password
+ share the files
+ samba has no log file so enable logfile
+ 
+samba log in global section
+============================
+# --------------------------- Logging Options -----------------------------
+adding below the globle contents
+
+        vfs objects = full_audit
+        full_audit:prefix = %u|%I|%m|%S
+        full_audit:success = mkdir rename unlink rmdir pwrite
+        full_audit:failure = none
+        full_audit:facility = local7
+        full_audit:priority = NOTICE
+        
+        Edit the rsylogfile in vim/etc/rsyslog.conf
+        add the content
+#local7.*                        /var/log/samba/log.audit
+        local7.* /var/log/samba.log
+        
+        
+systemctl resart rsyslog
+
+
+ 
+   
+ 
+ 
 
 
      
