@@ -404,7 +404,17 @@ adding below the globle contents
 systemctl resart rsyslog
 
 
- 
+ Configuring SELinux and Firewalld for SAMBA
+
+# setsebool -P samba_export_all_ro=1 samba_export_all_rw=1
+# getsebool -a | grep samba_export
+# semanage fcontext -at samba_share_t "/finance(/.*)?"
+# restorecon /finance
+
+FIREWALLD:
+
+# firewall-cmd --permanent --add-service=samba
+# firewall-cmd --reload
    
  
  
