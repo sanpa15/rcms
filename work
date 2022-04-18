@@ -324,6 +324,12 @@ BELOW CHANGES IN SERVER SIDE CONFIGURATION
  chroot_list_enable=YES
  uncoment ls_recurse_enable=YES
  vsftpd_log_file=/var/log/vsftpd.log create var/log vsftpd.log file
+ pam_service_name=vsftpd
+userlist_enable=YES
+userlist_deny=NO
+userlist_file=/etc/vsftpd/users
+tcp_wrappers=YES
+allow_writable_chroot=YES
  user_config_dir=/etc/vsftpd/users
           OR
 userlist_file=/etc/vsftpd.userlist
