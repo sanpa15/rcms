@@ -422,6 +422,40 @@ FIREWALLD:
 # firewall-cmd --permanent --add-service=samba
 # firewall-cmd --reload
    
+ su administrator
+6Jm3=*123
+
+OPEN VPN CONFIGURATION FOR USERS
+first go to users  terminal go to desktop create sslvpn directory use pwd command then paste the location of user presentworking directory
+
+/home/ubuntu/Desktop/sslvpn
+
+then using which openvpn command and paste the text in that location
+
+/usr/sbin/openvpn
+
+then using whoami command then paste text in that location
+  ubuntu 
+  
+  then go to visudo file and add the parameter
+  
+  #includedir /etc/sudoers.d
+username ALL=NOPASSWD:/usr/sbin/openvpn
+user name =your username
+ubuntu  ALL=NOPASSWD:/usr/sbin/openvpn
+
+exit admin user
+
+using  alias command to copy the users file in text
+sudo vim ~/.bashrc
+# This VPN Connecion aliase
+alias rits='sudo openvpn --config /home/ubuntu/sslvpn/vijayarajan.conf'
+
+alias vpn='sudo openvpn --config /home/rcms-lab-065/Desktop/sslvpn/your
+ users.conf'
+ save and exit
+ 
+
  
  
 
