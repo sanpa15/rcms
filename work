@@ -426,6 +426,9 @@ FIREWALLD:
 6Jm3=*123
 
 OPEN VPN CONFIGURATION FOR USERS
+
+
+
 first go to users  terminal go to desktop create sslvpn directory use pwd command then paste the location of user presentworking directory
 
 /home/ubuntu/Desktop/sslvpn
@@ -454,6 +457,41 @@ alias rits='sudo openvpn --config /home/ubuntu/sslvpn/vijayarajan.conf'
 alias vpn='sudo openvpn --config /home/rcms-lab-065/Desktop/sslvpn/your
  users.conf'
  save and exit
+ THEN GO TO users desktop>sslvpn type vpn ask username password
+ 
+ 
+ CENTOS7 07 vhost configuration
+
+(server world) reference
+edit userdir.conf
+
+remove welcome.conf file before remove it and create vhost.conf file
+
+/etc/httpd/conf.d/vhost.conf 
+
+add this content in vhost.conf file
+#orginal domain
+
+<VirtualHost *:80>
+   DocumentRoot /var/www/html this location add the index.html file
+   ServerName www.rc.io  your domain name
+</VirtualHost> 
+
+ #virtual domain
+
+<VirtualHost *:80>
+   DocumentRoot /var/www/vhtml this location create index.html file
+   ServerName www.vrc.io
+   ServerAdmin webmaster@vrc.io   your domain name
+   ErrorLog logs/vrc-error_log
+   CustomLog logs/vrc-access_log combined
+   
+# IF WANT MORE DOMAIN ADD ABOVE PARAMETER ONLY
+
+then edit /etc/hosts file 
+add your ip and your website ex: 192.168.3.234   www.test1.com
+
+go to web browser enter your domain name show your index.html file text
  
 
  
