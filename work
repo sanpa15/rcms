@@ -485,6 +485,7 @@ add this content in vhost.conf file
    ServerAdmin webmaster@vrc.io   your domain name
    ErrorLog logs/vrc-error_log
    CustomLog logs/vrc-access_log combined
+   </virtualHost>
    
 # IF WANT MORE DOMAIN ADD ABOVE PARAMETER ONLY
 
