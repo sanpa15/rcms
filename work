@@ -327,12 +327,10 @@ BELOW CHANGES IN SERVER SIDE CONFIGURATION
  pam_service_name=vsftpd
 userlist_enable=YES
 userlist_deny=NO
-userlist_file=/etc/vsftpd/users
 tcp_wrappers=YES
 allow_writable_chroot=YES
- user_config_dir=/etc/vsftpd/users
-          OR
-userlist_file=/etc/vsftpd.userlist
+user_config_dir=/etc/vsftpd/users
+userlist_file=/etc/vsftpd/users/keypass  adding the user to keypass file
 create user and passwd for user
 create one directory and change the ownership on this directory
 chown user:user dir name
