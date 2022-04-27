@@ -437,6 +437,7 @@ then using which openvpn command and paste the text in that location
 
 then using whoami command then paste text in that location
   ubuntu 
+  then login administrator user 
   
   then go to visudo file and add the parameter
   
