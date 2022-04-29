@@ -456,6 +456,8 @@ alias rits='sudo openvpn --config /home/ubuntu/sslvpn/vijayarajan.conf'
 alias vpn='sudo openvpn --config /home/rcms-lab-065/Desktop/sslvpn/your
  users.conf'
  save and exit
+ use this command source ~/.bashrc
+ 
  THEN GO TO users desktop>sslvpn type vpn ask username password
  
  
