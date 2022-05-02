@@ -62,6 +62,17 @@ OpenSSH : Password Authentication
   ![image](https://user-images.githubusercontent.com/98270930/166201607-13570f04-580a-4603-bba6-2d434be09218.png)
 
   
+  Using sftp command
+  
+  ![image](https://user-images.githubusercontent.com/98270930/166209075-93383c9b-9b26-4915-8d28-8c65df733271.png)
+
+
+# OpenSSH : SSH Key-Pair Authentication
+
+
+
+
+
     
 
 #   how to allowing the particular userrs in ssh ervice
