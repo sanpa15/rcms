@@ -1,7 +1,15 @@
 sophos vpn username pandi
 password:Lemon@11PANDI
 
+**SSHD CONFIGURATION FOR CENTOS 7**
 
+OpenSSH : Password Authentication
+
+ First we take remote server via ssh using below command
+ 
+ ssh -l remoteservername ip address
+ 
+ 
 #   how to allowing the particular userrs in ssh ervice
 
 
