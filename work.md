@@ -580,7 +580,94 @@ add your ip and your website ex: 192.168.3.234   www.test1.com
 go to web browser enter your domain name show your index.html file text
  
 
- 
+ CENT OS vsftpd configuration
+
+
+vim /etc/vsftpd/vsftpd.conf
+
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+local_umask=022
+dirmessage_enable=YES
+xferlog_enable=YES
+xferlog_std_format=YES
+ascii_upload_enable=YES
+ascii_download_enable=YES
+ftpd_banner=Welcome to Radiant FTP service.
+listen=YES
+listen_ipv6=NO
+
+chroot_list_file=/etc/vsftpd/vsftpd.chroot_list
+pam_service_name=vsftpd
+userlist_enable=YES
+tcp_wrappers=YES
+use_localtime=YES
+user_config_dir=/etc/vsftpd/users/
+allow_writeable_chroot=YES
+chroot_local_user=YES
+chroot_list_enable=NO
+
+
+create /etc/vsftpd/vsftpd.chroot_list file add the user this file
+create directory mkdir /etc/vsftpd/users/
+
+
+create user usera
+
+create the directory  jino for /var/www/html/jino/
+change the owenership the jino directory in chown usera:usera jino
+
+nc -vz 192.168.158.118 22
+
+
+no route to host error  systemctl stop firewalld
+
+use the command setenforce 0
+
+CENT OS VSFTPD WITH SSL/TLS
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+local_umask=022
+dirmessage_enable=YES
+xferlog_enable=YES
+xferlog_std_format=YES
+ascii_upload_enable=YES
+ascii_download_enable=YES
+ftpd_banner=Welcome to Radiant FTP service.
+listen=YES
+listen_ipv6=NO
+listen_port=201
+chroot_list_file=/etc/vsftpd/vsftpd.chroot_list
+pam_service_name=vsftpd
+userlist_enable=YES
+tcp_wrappers=YES
+use_localtime=YES
+user_config_dir=/etc/vsftpd/users/
+allow_writeable_chroot=YES
+chroot_local_user=YES
+chroot_list_enable=NO
+
+rsa_cert_file=/etc/ssl/private/vsftpd.pem
+rsa_private_key_file=/etc/ssl/private/vsftpd.pem
+
+ssl_enable=YES
+allow_anon_ssl=NO
+force_local_data_ssl=YES
+force_local_logins_ssl=YES
+
+ssl_tlsv1=YES
+ssl_sslv2=NO
+ssl_sslv3=NO
+require_ssl_reuse=NO
+ssl_ciphers=HIGH
+
+
+
+
+
+
  
 
 
