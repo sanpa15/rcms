@@ -1,5 +1,5 @@
 openssl closed_lock_with_key
-Install
+Installation commands
 
 Install the OpenSSL on Debian based systems
 
