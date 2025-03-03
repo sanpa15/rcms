@@ -91,7 +91,7 @@ sudo ln -s /etc/nginx/sites-available/delta.in.conf /etc/nginx/sites-enabled/
 ## Set Up SSL Certificates
 
 ```bash 
-sudo mkdir -p /etc/nginx/ssl/erp
+sudo mkdir -p /etc/nginx/ssl/radianterp
 sudo cp /path/to/your/certificate.crt /etc/nginx/ssl/radianterp/certificate.crt
 sudo cp /path/to/your/private.key /etc/nginx/ssl/radianterp//private.key
 sudo chmod 600 /etc/nginx/ssl/radianterp/certificate.crt
